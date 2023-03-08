@@ -109,10 +109,6 @@ public class HoldYourGroundPlugin extends Plugin
 		if (npc == null) return;
 		if (npc.getName() == null) return;
 
-		System.out.println(event.getMenuOption());
-		System.out.println(target);
-
-
 		WorldArea start = client.getLocalPlayer().getWorldArea();
 		boolean hasLineOfSight = HoldYourGroundUtils.hasLineOfSight(client, start, npc.getLocalLocation());
 		boolean isWithinRange = HoldYourGroundUtils.isWithinRange(client, start, npc.getLocalLocation(), config.maxTileRange());
