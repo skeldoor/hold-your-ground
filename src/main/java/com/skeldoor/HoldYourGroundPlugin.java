@@ -12,10 +12,12 @@ import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
+import net.runelite.client.util.HotkeyListener;
 import net.runelite.client.util.Text;
 
 import java.awt.*;
@@ -50,15 +52,37 @@ public class HoldYourGroundPlugin extends Plugin
 	String useMenuOption = "Use";
 	String walkHereMenuOption = "Walk here";
 
-	@Override
-	protected void startUp() throws Exception
+	boolean overrideHoldMove = false;
+
+	@Inject
+	private KeyManager keyManager;
+
+	private final HotkeyListener hotkeyListener = new HotkeyListener(() -> config.holdMovingHotkey())
 	{
+		@Override
+		public void hotkeyPressed()
+		{
+			overrideHoldMove = true;
+		}
+
+		@Override
+		public void hotkeyReleased()
+		{
+			overrideHoldMove = false;
+		}
+	};
+
+	@Override
+	protected void startUp()
+	{
+		keyManager.registerKeyListener(hotkeyListener);
 		overlayManager.add(holdYourGroundOverlay);
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
+		keyManager.unregisterKeyListener(hotkeyListener);
 		overlayManager.remove(holdYourGroundOverlay);
 	}
 
@@ -67,11 +91,15 @@ public class HoldYourGroundPlugin extends Plugin
 		String target = event.getMenuTarget();
 		String menuOption = event.getMenuOption();
 
-		if (config.holdMoving() && Objects.equals(menuOption, walkHereMenuOption)){
-			event.getMenuEntry().setTarget(ColorUtil.prependColorTag(Text.removeTags(target),Color.black));
-			event.getMenuEntry().setDeprioritized(true);
-			event.consume();
-			sendHighlightedChatMessage("Player walking is disabled");
+		if (Objects.equals(menuOption, walkHereMenuOption)){
+			if (overrideHoldMove){
+				sendHighlightedChatMessage("Player movement is allowed as hotkey is held");
+			} else if (config.holdMoving()){
+				event.getMenuEntry().setTarget(ColorUtil.prependColorTag(Text.removeTags(target),Color.black));
+				event.getMenuEntry().setDeprioritized(true);
+				event.consume();
+				sendHighlightedChatMessage("Player movement is disabled");
+			}
 		}
 
 		int identifier = event.getMenuEntry().getIdentifier();
@@ -90,7 +118,6 @@ public class HoldYourGroundPlugin extends Plugin
 		boolean isWithinRange = HoldYourGroundUtils.isWithinRange(client, start, npc.getLocalLocation(), config.maxTileRange());
 
 		// If we don't have line of sight or aren't within configured range, consume the click to stop it happening
-
 		if (config.holdAttacks()     && Objects.equals(menuOption, attackOption) ||
 			config.holdSpells()      && Objects.equals(menuOption, magicOption) ||
 			config.holdTalkTo()      && Objects.equals(menuOption, talkMenuOption) ||

@@ -3,6 +3,7 @@ package com.skeldoor;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Keybind;
 
 @ConfigGroup("Hold Your Ground")
 public interface HoldYourGroundConfig extends Config
@@ -96,10 +97,21 @@ public interface HoldYourGroundConfig extends Config
 	}
 
 	@ConfigItem(
+			keyName = "holdMovingHotkey",
+			name = "Hold your horses hotkey",
+			description = "Hold this key down to allow movement again, good for repositioning your character (unset to disable)",
+			position = 8
+	)
+	default Keybind holdMovingHotkey()
+	{
+		return Keybind.NOT_SET;
+	}
+
+	@ConfigItem(
 		keyName = "requireStationary",
 		name = "Require stationary",
 		description = "Require that the NPC is not moving",
-		position = 8
+		position = 9
 	)
 	default boolean requireStationary()
 	{
@@ -110,7 +122,7 @@ public interface HoldYourGroundConfig extends Config
 		keyName = "showOverlay",
 		name = "Show overlay",
 		description = "Whether the npc overlay shows on their tile",
-		position = 9
+		position = 10
 	)
 	default boolean showOverlay()
 	{
@@ -121,7 +133,7 @@ public interface HoldYourGroundConfig extends Config
 		keyName = "chatMessages",
 		name = "Show chat messages",
 		description = "Whether chat will be populated with the reason for a held click",
-		position = 10
+		position = 11
 	)
 	default boolean chatMessages()
 	{
