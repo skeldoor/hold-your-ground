@@ -10,7 +10,8 @@ public interface HoldYourGroundConfig extends Config
 	@ConfigItem(
 		keyName = "maxTileRange",
 		name = "Max Tile Range",
-		description = "How far your interaction range extends. Conversations/Pickpocketing/Salamander = 1, Shortbow/Powered Staff = 7, Shortbow(def) = 9, Spells = 10"
+		description = "How far your interaction range extends. Conversations/Pickpocketing/Salamander = 1, Shortbow/Powered Staff = 7, Shortbow(def) = 9, Spells = 10",
+		position = 0
 	)
 	default int maxTileRange()
 	{
@@ -18,9 +19,10 @@ public interface HoldYourGroundConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "holdAttacks",
-			name = "Hold your attacks",
-			description = "Whether your attacks will be held back"
+		keyName = "holdAttacks",
+		name = "Hold your attacks",
+		description = "Whether your attacks will be held back",
+		position = 1
 	)
 	default boolean holdAttacks()
 	{
@@ -28,9 +30,10 @@ public interface HoldYourGroundConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "holdSpells",
-			name = "Hold your spells",
-			description = "Whether your spell casts will be held back"
+		keyName = "holdSpells",
+		name = "Hold your spells",
+		description = "Whether your spell casts will be held back",
+		position = 2
 	)
 	default boolean holdSpells()
 	{
@@ -38,9 +41,10 @@ public interface HoldYourGroundConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "holdTalkTo",
-			name = "Hold your conversations",
-			description = "Whether your conversations (Talk to) will be held back"
+		keyName = "holdTalkTo",
+		name = "Hold your conversations",
+		description = "Whether your conversations (Talk to) will be held back",
+		position = 3
 	)
 	default boolean holdTalkTo()
 	{
@@ -48,9 +52,10 @@ public interface HoldYourGroundConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "holdTrades",
-			name = "Hold your trades",
-			description = "Whether your trade will be held back"
+		keyName = "holdTrades",
+		name = "Hold your trades",
+		description = "Whether your trade will be held back",
+		position = 4
 	)
 	default boolean holdTrades()
 	{
@@ -58,9 +63,10 @@ public interface HoldYourGroundConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "holdPickpockets",
-			name = "Hold your pickpockets",
-			description = "Whether your pickpockets will be held back"
+		keyName = "holdPickpockets",
+		name = "Hold your pickpockets",
+		description = "Whether your pickpockets will be held back",
+		position = 5
 	)
 	default boolean holdPickpockets()
 	{
@@ -68,9 +74,10 @@ public interface HoldYourGroundConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "holdUses",
-			name = "Hold your uses",
-			description = "Whether your item uses (Use item on) will be held back"
+		keyName = "holdUses",
+		name = "Hold your uses",
+		description = "Whether your item uses (Use item on) will be held back",
+		position = 6
 	)
 	default boolean holdUses()
 	{
@@ -78,9 +85,10 @@ public interface HoldYourGroundConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "holdMoving",
-			name = "Hold moving",
-			description = "Whether your character movements will be held back"
+		keyName = "holdMoving",
+		name = "Hold your horses",
+		description = "Whether your character movements will be held back",
+		position = 7
 	)
 	default boolean holdMoving()
 	{
@@ -88,9 +96,10 @@ public interface HoldYourGroundConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "requireStationary",
-			name = "Require stationary",
-			description = "Require that the NPC is not moving"
+		keyName = "requireStationary",
+		name = "Require stationary",
+		description = "Require that the NPC is not moving",
+		position = 8
 	)
 	default boolean requireStationary()
 	{
@@ -98,9 +107,10 @@ public interface HoldYourGroundConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "showOverlay",
-			name = "Show overlay",
-			description = "Whether the npc overlay shows on their tile"
+		keyName = "showOverlay",
+		name = "Show overlay",
+		description = "Whether the npc overlay shows on their tile",
+		position = 9
 	)
 	default boolean showOverlay()
 	{
@@ -108,9 +118,10 @@ public interface HoldYourGroundConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "chatMessages",
-			name = "Show chat messages",
-			description = "Whether chat will be populated with the reason for a held click"
+		keyName = "chatMessages",
+		name = "Show chat messages",
+		description = "Whether chat will be populated with the reason for a held click",
+		position = 10
 	)
 	default boolean chatMessages()
 	{
