@@ -10,7 +10,7 @@ public class HoldYourGroundUtils {
     public static boolean hasLineOfSight(Client client, WorldArea start, LocalPoint targetLocalPoint)
     {
         WorldPoint targetWorldPoint = WorldPoint.fromLocal(client, targetLocalPoint);
-        return start.hasLineOfSightTo(client, targetWorldPoint);
+        return start.hasLineOfSightTo(client.getTopLevelWorldView(), targetWorldPoint);
     }
 
     public static boolean isWithinRange(Client client, WorldArea start, LocalPoint targetLocalPoint, int range){
