@@ -86,17 +86,31 @@ public class HoldYourGroundPlugin extends Plugin
 		overlayManager.remove(holdYourGroundOverlay);
 	}
 
+	private boolean playerCanMove(HoldYourGroundConfig config, boolean overrideHoldMove, MenuOptionClicked event){
+		if (!config.holdMoving()) {
+			// If hold moving feature is not enabled, allow movement
+			return true;
+		}
+
+		// If hold moving is enabled, check the hotkey inversion logic
+		if (config.holdMovingHotkeyInvert()) {
+			// If the inversion is true, allow movement when the hotkey is pressed
+			return !overrideHoldMove;
+		} else {
+			// If the inversion is false, block movement when the hotkey is pressed
+			return overrideHoldMove;
+		}
+	}
+
 	@Subscribe
 	private void onMenuOptionClicked(MenuOptionClicked event) {
 		String target = event.getMenuTarget();
 		String menuOption = event.getMenuOption();
 
 		if (Objects.equals(menuOption, walkHereMenuOption)){
-			if (overrideHoldMove){
-				sendHighlightedChatMessage("Player movement is allowed as hotkey is held");
-			} else if (config.holdMoving()){
-				event.getMenuEntry().setTarget(ColorUtil.prependColorTag(Text.removeTags(target),Color.black));
-				event.getMenuEntry().setDeprioritized(true);
+			// If holdMoving is enabled, prevent player movement.
+			// If we're holding the hotkey, allow movement, unless config.holdMovingHotkeyInvert() is true
+			if (!playerCanMove(config, overrideHoldMove, event)) {
 				event.consume();
 				sendHighlightedChatMessage("Player movement is disabled");
 			}

@@ -108,10 +108,21 @@ public interface HoldYourGroundConfig extends Config
 	}
 
 	@ConfigItem(
+			keyName = "holdMovingHotkeyInvert",
+			name = "Invert hold your horses hotkey",
+			description = "Invert the action of the above hotkey",
+			position = 9
+	)
+	default boolean holdMovingHotkeyInvert()
+	{
+		return false;
+	}
+
+	@ConfigItem(
 		keyName = "requireStationary",
 		name = "Require stationary",
 		description = "Require that the NPC is not moving",
-		position = 9
+		position = 10
 	)
 	default boolean requireStationary()
 	{
@@ -122,7 +133,7 @@ public interface HoldYourGroundConfig extends Config
 		keyName = "showOverlay",
 		name = "Show overlay",
 		description = "Whether the npc overlay shows on their tile",
-		position = 10
+		position = 11
 	)
 	default boolean showOverlay()
 	{
@@ -133,7 +144,7 @@ public interface HoldYourGroundConfig extends Config
 		keyName = "chatMessages",
 		name = "Show chat messages",
 		description = "Whether chat will be populated with the reason for a held click",
-		position = 11
+		position = 12
 	)
 	default boolean chatMessages()
 	{
