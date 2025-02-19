@@ -3,6 +3,7 @@ package com.skeldoor;
 import com.google.inject.Provides;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import net.runelite.api.*;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.events.MenuOptionClicked;
@@ -117,9 +118,13 @@ public class HoldYourGroundPlugin extends Plugin
 		}
 
 		int identifier = event.getMenuEntry().getIdentifier();
-		final NPC[] cachedNPCs = client.getCachedNPCs();
-		final NPC npc = cachedNPCs[identifier];
-
+		final var npcs = client.getTopLevelWorldView().npcs();
+		final NPC npc;
+		try {
+			npc = npcs.byIndex(identifier);
+		} catch (ArrayIndexOutOfBoundsException ignored) {
+			return;
+		}
 		if (npc == null) return;
 		if (npc.getName() == null) return;
 
