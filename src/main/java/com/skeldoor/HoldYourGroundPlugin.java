@@ -3,7 +3,6 @@ package com.skeldoor;
 import com.google.inject.Provides;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import net.runelite.api.*;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.events.MenuOptionClicked;
